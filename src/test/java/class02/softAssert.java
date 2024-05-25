@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import utils.CommonMethods;
 import utils.ConfigReader;
 
@@ -31,17 +32,19 @@ public class softAssert {
         // verify that the Invalid credential error message is present
         String actualMessage = driver.findElement(By.id("spanMessage")).getText();
 
-        Assert.assertEquals(actualMessage, "Invalid credentials");
-    }
+        // soft assertion
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualMessage, "Invalid credentials");
 
-    @Test
-    public void loginBtnStatus() {
+        // verify login button status. enabled and displayed
         WebElement loginBtn = driver.findElement(By.xpath("//input[@name='Submit']"));
         boolean loginBtnStatus = loginBtn.isDisplayed();
-        Assert.assertTrue(loginBtnStatus);
+        softAssert.assertTrue(loginBtnStatus);
 
         loginBtnStatus = loginBtn.isEnabled();
-        Assert.assertTrue(loginBtnStatus);
+        softAssert.assertTrue(loginBtnStatus);
+
+        softAssert.assertAll();
     }
 
 

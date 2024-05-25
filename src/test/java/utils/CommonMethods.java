@@ -1,5 +1,6 @@
 package utils;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -97,6 +98,26 @@ public class CommonMethods {
     public static void clickTheElement(WebElement element) {
         waitForElementToBeClicked(element);
         element.click();
+    }
+
+    public static void syntaxLogin() {
+        sendText(ConfigReader.read("userName"),
+                driver.findElement(By.xpath(Constants.SYNTAX_USERNAME_PATH)));
+        sendText(ConfigReader.read("password"),
+                driver.findElement(By.xpath(Constants.SYNTAX_PASSWORD_PATH)));
+        clickTheElement(driver.findElement(By.xpath(Constants.LOGIN_BUTTON_PATH)));
+    }
+
+    public static void syntaxLogin(String userName, String password) {
+        sendText(userName, driver.findElement(By.xpath(Constants.SYNTAX_USERNAME_PATH)));
+        sendText(password, driver.findElement(By.xpath(Constants.SYNTAX_PASSWORD_PATH)));
+        clickTheElement(driver.findElement(By.xpath(Constants.LOGIN_BUTTON_PATH)));
+    }
+
+    public static void syntaxLogin(String userName, String password, String userPath, String passPath, String btnPath) {
+        sendText(userName, driver.findElement(By.xpath(userPath)));
+        sendText(password, driver.findElement(By.xpath(passPath)));
+        clickTheElement(driver.findElement(By.xpath(btnPath)));
     }
 
     //take screenshot

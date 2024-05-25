@@ -13,12 +13,12 @@ import java.io.IOException;
 public class hardAssertion {
     public static WebDriver driver;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void openBrowser() throws IOException {
         driver = CommonMethods.openBrowserAndLaunchApplication();
     }
 
-    @Test
+    @Test(groups = "smoke")
     public void loginVerification() {
         CommonMethods.sendText("Admin1",
                 driver.findElement(By.xpath("//input[@name='txtUsername']")));
@@ -43,7 +43,7 @@ public class hardAssertion {
     }
 
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void closeBrowser() {
         driver.quit();
     }
